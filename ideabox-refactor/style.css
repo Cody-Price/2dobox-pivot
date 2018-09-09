@@ -9,7 +9,7 @@ body {
 }
 
 .user-input-section {
-    background-color: #e5f3f2;
+    background-color: #F3E5E6;
     height: 300px;
     margin: 0;
     text-align: center;
@@ -31,7 +31,7 @@ h1{
 }
 
 .h1-2do {
-    color: #00a79d;
+    color: #A7000A;
 }
 
 #body-input {
@@ -44,7 +44,7 @@ h1{
 }
 
 .save-btn {
-    background-color: #00a79d;
+    background-color: #A7000A;
     border: none;
     color: #fff;
     font-size: 120%;
@@ -53,7 +53,7 @@ h1{
 }
 
 .save-btn:hover {
-    background-color: #045e55;
+    background-color: #5E040D;
 }
 
 .second-section {
@@ -73,10 +73,10 @@ input {
   width: 99%;
 }
 
-.card-container {
+.card-section {
     margin: auto;
     position: relative;
-    width: 45%;
+    width: 50%;
 }
 
 .card {
@@ -116,52 +116,54 @@ button {
     border: none;
 }
 
+.voting-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.quality {
+    display: inline;
+}
+
+
 .upvote {
     background-image: url(./images/upvote.svg);
-    background-size: cover;
-    height: 20px;
-    margin-right: 5px; 
-    width: 20px;
 }
 
 .upvote:hover {
-    background-color: transparent;
     background-image: url(./images/upvote-hover.svg);
-    background-size: cover;
-    height: 20px;
-    width: 20px;
 }
 
 .downvote {
     background-image: url(./images/downvote.svg);
-    background-size: cover;
-    height: 20px;
-    margin-right: 5px; 
-    width: 20px;
+    margin: 0 20px;
 }
 
 .downvote:hover {
     background-image: url(./images/downvote-hover.svg);
-    background-size: cover;
-    height: 20px;
-    width: 20px;
 }
 
 .delete-button {
     background-image: url(./images/delete.svg);
-    background-size: cover;
-    height: 20px;
-    position: absolute;
-    right: 10px;
-    top: 15px;
-    width: 20px;
+    float: right;
+    position: relative;
+    top: 20px;
 }
 
 .delete-button:hover {
     background-image: url(./images/delete-hover.svg);
+}
+
+.downvote,
+.downvote:hover,
+.upvote,
+.upvote:hover,
+.delete-button,
+.delete-button:hover {
+    height: 30px;
+    width: 30px;
     background-size: cover;
-    height: 20px;
-    width: 20px;
 }
 
 @media(max-width: 640px){
