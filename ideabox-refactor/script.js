@@ -4,18 +4,22 @@ var numCards = 0;
 var qualityVariable = "swill";
 
 var newCard = function(id , title , body , quality) {
-    return '<div id="' + id + '"class="card-container"><h2 class="title-of-card">'  
-            + title +  '</h2>'
-            + '<button class="delete-button circle-button"></button>'
-            +'<p class="body-of-card">'
-            + body + '</p>'
-            + '<div class="voting-div">'
-            + '<button class="upvote circle-button"></button>' 
-            + '<button class="downvote circle-button"></button>' 
-            + '<p class="quality">' + 'quality:' + '<span class="qualityVariable">' + quality + '</span>' + '</p>'
-            + '</div>'
-            + '<hr>' 
-            + '</div>';
+    return `<div id="${id}" class="card-container">
+              <h2 class="title-of-card"> 
+                ${title} 
+              </h2>
+              <button class="delete-button circle-button"></button>
+              <p class="body-of-card">
+                ${body} 
+              </p>
+              <div class="voting-div">
+                <button class="upvote circle-button"></button> 
+                <button class="downvote circle-button"></button> 
+                <p class="quality"> quality: <span class="qualityVariable">${quality}</span>  
+                </p>
+              </div>
+              <hr> 
+            </div>`;
 };
 
 function cardObject() {
@@ -50,53 +54,54 @@ $('.save-btn').on('click', function(event) {
 });
 
 $(".card-section").on('click', function(event){
-    var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
-    var qualityVariable;
+  var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
+  var qualityVariable;
 
-    if (event.target.className === "upvote" || event.target.className === "downvote"){
+  if (event.target.className === "upvote" || event.target.className === "downvote"){
 
-        if (event.target.className === "upvote" && currentQuality === "plausible"){
-            qualityVariable = "genius";
-            $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-               
-        } else if (event.target.className === "upvote" && currentQuality === "swill") {
-            qualityVariable = "plausible";
-            $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-               
-        } else if (event.target.className === "downvote" && currentQuality === "plausible") {
-            qualityVariable = "swill"
-            $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
+    if (event.target.className === "upvote" && currentQuality === "plausible"){
+        qualityVariable = "genius";
+        $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
+           
+    } else if (event.target.className === "upvote" && currentQuality === "swill") {
+        qualityVariable = "plausible";
+        $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
+           
+    } else if (event.target.className === "downvote" && currentQuality === "plausible") {
+        qualityVariable = "swill"
+        $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
 
-        } else if (event.target.className === "downvote" && currentQuality === "genius") {
-            qualityVariable = "plausible"
-            $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
+    } else if (event.target.className === "downvote" && currentQuality === "genius") {
+        qualityVariable = "plausible"
+        $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
 
-        } else if (event.target.className === "downvote" && currentQuality === "swill") {
-            qualityVariable = "swill";
-        
-        } else if (event.target.className === "upvote" && currentQuality === "genius") {
-            qualityVariable = "genius";
-        }
-
-    var cardHTML = $(event.target).closest('.card-container');
-    var cardHTMLId = cardHTML[0].id;
-    var cardObjectInJSON = localStorage.getItem(cardHTMLId);
-    var cardObjectInJS = JSON.parse(cardObjectInJSON);
-
-    cardObjectInJS.quality = qualityVariable;
-
-    var newCardJSON = JSON.stringify(cardObjectInJS);
-    localStorage.setItem(cardHTMLId, newCardJSON);
+    } else if (event.target.className === "downvote" && currentQuality === "swill") {
+        qualityVariable = "swill";
+    
+    } else if (event.target.className === "upvote" && currentQuality === "genius") {
+        qualityVariable = "genius";
     }
+
+  var cardHTML = $(event.target).closest('.card-container');
+  var cardHTMLId = cardHTML[0].id;
+  var cardObjectInJSON = localStorage.getItem(cardHTMLId);
+  var cardObjectInJS = JSON.parse(cardObjectInJSON);
+
+  cardObjectInJS.quality = qualityVariable;
+
+  var newCardJSON = JSON.stringify(cardObjectInJS);
+  localStorage.setItem(cardHTMLId, newCardJSON);
+  }
    
-    else if (event.target.className === "delete-button") {
-        var cardHTML = $(event.target).closest('.card-container').remove();
-        var cardHTMLId = cardHTML[0].id;
-        localStorage.removeItem(cardHTMLId);
-    }
 });
       
 
+$(".second-section").on('click', function(event) {
+  event.target.className === "delete-button" {
+  var cardHTML = $(event.target).closest('.card-container').remove();
+  var cardHTMLId = cardHTML[0].id;
+  localStorage.removeItem(cardHTMLId);
+}
 
 
 
