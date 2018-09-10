@@ -16,7 +16,7 @@ var NewCard = function(id , title , body , quality) {
             <div class="voting-div">
               <button class="upvote circle-button"></button> 
               <button class="downvote circle-button"></button> 
-              <p class="quality"> quality: <span class="qualityVariable">${quality}</span>  
+              <p class="quality"> quality: <span class="quality-variable">${quality}</span>  
               </p>
             </div>
             <hr> 
@@ -88,12 +88,48 @@ $('.save-btn').on('click', function(event) {
 });
 
 
+$('.card-section').on('click', function(event) {
+  if ($(event.target).hasClass('upvote')) {
+    upVote();
+  }
+})
+
+$('.card-section').on('click', function(event) {
+  if ($(event.target).hasClass('downvote')) {
+    downVote();
+  }
+})
+
+function upVote() {
+  var quality = $(event.target).closest('.card-container').find('.quality-variable')[0];
+  if ($(quality).text() === 'swill') {
+    $(quality).text('plausible');
+    return 'plausible';
+  } else if ($(quality).text() === 'plausible') {
+    $(quality).text('genius');
+    return 'genius'
+  } else {
+    return;
+  }
+}
+function downVote() {
+  var quality = $(event.target).closest('.card-container').find('.quality-variable')[0];
+  if ($(quality).text() === 'genius') {
+    $(quality).text('plausible');
+    return 'plausible';
+  } else if ($(quality).text() === 'plausible') {
+    $(quality).text('swill');
+    return 'swill'
+  } else {
+    return;
+  }
+}
 
 // $(".card-section").on('click', function(event){
 //   var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
 //   var qualityVariable;
-
-//   if (event.target.className === "upvote" || event.target.className === "downvote"){
+//   if ($(event.target).hasClass('upvote') || $(event.target).hasClass('downvote')){
+//     console.log('click')
 
 //     if (event.target.className === "upvote" && currentQuality === "plausible"){
 //         qualityVariable = "genius";
@@ -132,7 +168,7 @@ $('.save-btn').on('click', function(event) {
 // });
       
 
-$(".card-section").on('click', function(event) {
+$('.card-section').on('click', function(event) {
   if ($(event.target).hasClass('delete-button')) {
   var cardHTML = $(event.target).closest('.card-container').remove();
   var cardHTMLId = cardHTML[0].id;
