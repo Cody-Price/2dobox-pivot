@@ -6,11 +6,11 @@ var NewCard = function(id , title , body , quality) {
   this.body = body;
   this.quality = quality;
   return `<div id="${id}" class="card-container">
-            <h2 class="title-of-card"> 
+            <h2 class="title-of-card" contenteditable="true"> 
               ${title} 
             </h2>
             <button class="delete-button circle-button"></button>
-            <p class="body-of-card">
+            <p class="body-of-card" contenteditable="true">
               ${body} 
             </p>
             <div class="voting-div">
