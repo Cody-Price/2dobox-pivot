@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>ideaBox</title>
+  <title>2DoBox</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab:700" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,23 +12,32 @@
       <form>
         <h1><span class="h1-2do">2Do</span>Box</h1>
         <input id="title-input" type="text" placeholder="Title">
-        <input id="body-input" type="text" placeholder="Body">
-        <button class="save-btn" type="submit">save</button>
+        <input id="body-input" type="text" placeholder="Task">
+        <button class="save-btn" type="submit" disabled="true">save</button>
       </form>
     </article>
   </section>
   <section class="second-section">
     <input id="search-input" type="text" placeholder="Search">
-    <article class="card-section"><!-- '<div id="' + id + '"class="card-container"><h2 class="title-of-card">'  
-            + title +  '</h2>'
-            + '<button class="delete-button"></button>'
-            +'<p class="body-of-card">'
-            + body + '</p>'
-            + '<button class="upvote"></button>' 
-            + '<button class="downvote"></button>' 
-            + '<p class="quality">' + 'quality:' + '<span class="qualityVariable">' + quality + '</span>' + '</p>'
-            + '<hr>' 
-            + '</div>'; --></article>
+    <article class="card-section">
+
+<!--       <div id="${id}" class="card-container">
+            <h2 class="title-of-card"> 
+              ${title} 
+            </h2>
+            <button class="delete-button circle-button"></button>
+            <p class="body-of-card">
+              ${body} 
+            </p>
+            <div class="voting-div">
+              <button class="upvote circle-button"></button> 
+              <button class="downvote circle-button"></button> 
+              <p class="quality"> quality: <span class="quality-variable">${quality}</span>  
+              </p>
+            </div>
+            <hr> 
+          </div> -->
+        </article>
   </section>
 </body>
   <script src="./jquery/jquery-3.2.1.js"></script>
