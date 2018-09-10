@@ -68,8 +68,17 @@ function cardObject() {
 //   //   cards.prepend(card);
 //   }
 
+$('#title-input').on('keyup', function() {
+  checkInputs();
+})
+
+$('#body-input').on('keyup', function() {
+  checkInputs();
+})
+
 function checkInputs(){
   if ($('#title-input').val() !== "" && $('#body-input').val() !== "") {
+    $('.save-btn').attr('disabled', false);
     return true;
   } else {
     return false;
@@ -82,6 +91,7 @@ $('.save-btn').on('click', function(event) {
     $( ".card-section" ).prepend(NewCard('id', $('#title-input').val(), $('#body-input').val(), 'swill')); 
     // localStoreCard();
     $('form')[0].reset();
+    $('.save-btn').attr('disabled', true);
  }else {
   return 
  }
@@ -126,33 +136,7 @@ function downVote() {
 }
 
 // $(".card-section").on('click', function(event){
-//   var currentQuality = $($(event.target).siblings('p.quality').children()[0]).text().trim();
-//   var qualityVariable;
-//   if ($(event.target).hasClass('upvote') || $(event.target).hasClass('downvote')){
-//     console.log('click')
 
-//     if (event.target.className === "upvote" && currentQuality === "plausible"){
-//         qualityVariable = "genius";
-//         $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-           
-//     } else if (event.target.className === "upvote" && currentQuality === "swill") {
-//         qualityVariable = "plausible";
-//         $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-           
-//     } else if (event.target.className === "downvote" && currentQuality === "plausible") {
-//         qualityVariable = "swill"
-//         $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-
-//     } else if (event.target.className === "downvote" && currentQuality === "genius") {
-//         qualityVariable = "plausible"
-//         $($(event.target).siblings('p.quality').children()[0]).text(qualityVariable);
-
-//     } else if (event.target.className === "downvote" && currentQuality === "swill") {
-//         qualityVariable = "swill";
-    
-//     } else if (event.target.className === "upvote" && currentQuality === "genius") {
-//         qualityVariable = "genius";
-//     }
 
 //   var cardHTML = $(event.target).closest('.card-container');
 //   var cardHTMLId = cardHTML[0].id;
@@ -177,12 +161,4 @@ $('.card-section').on('click', function(event) {
    return;
   }
 });
-
-
-
-
-
-
-
-
 
