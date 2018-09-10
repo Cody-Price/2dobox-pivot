@@ -6,12 +6,14 @@ var qualityVariable = "swill";
 var newCard = function(id , title , body , quality) {
     return '<div id="' + id + '"class="card-container"><h2 class="title-of-card">'  
             + title +  '</h2>'
-            + '<button class="delete-button"></button>'
+            + '<button class="delete-button circle-button"></button>'
             +'<p class="body-of-card">'
             + body + '</p>'
-            + '<button class="upvote"></button>' 
-            + '<button class="downvote"></button>' 
+            + '<div class="voting-div">'
+            + '<button class="upvote circle-button"></button>' 
+            + '<button class="downvote circle-button"></button>' 
             + '<p class="quality">' + 'quality:' + '<span class="qualityVariable">' + quality + '</span>' + '</p>'
+            + '</div>'
             + '<hr>' 
             + '</div>';
 };
