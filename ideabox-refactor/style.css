@@ -172,7 +172,7 @@ button {
 }
 
 @media(max-width: 640px){
-
+/*
     .card-container {
         width: 85%;
     }
@@ -180,5 +180,5 @@ button {
     #search-input {
         border: solid #999 1px;
     }
-}
+}*/
 
