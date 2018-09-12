@@ -7,25 +7,25 @@ var NewCard = function(title , body, quality) {
   this.quality = quality;
 };
 
-function render(data) {
-  var html = `<div id="${data.id}" class="card-container">
+function render(card) {
+  var html = `<div id="${card.id}" class="card-container">
                 <h2 class="title-of-card" contenteditable="true"> 
-                  ${data.title} 
+                  ${card.title} 
                 </h2>
                 <button class="delete-button circle-button"></button>
                 <p class="body-of-card" contenteditable="true">
-                  ${data.body} 
+                  ${card.body} 
                 </p>
                 <div class="voting-div">
                   <button class="upvote circle-button"></button> 
                   <button class="downvote circle-button"></button> 
-                  <p class="quality"> quality: <span class="quality-variable">${data.quality}</span>  
+                  <p class="quality"> quality: <span class="quality-variable">${card.quality}</span>  
                   </p>
                 </div>
                 <button class="complete-btn">Completed Task</button> 
               </div>`
   $('.card-section').prepend(html);
-}
+};
 
 function storeData(card) {
   var stringifiedCard = JSON.stringify(card);
