@@ -178,7 +178,7 @@ button {
 .complete-btn {
     width: 25%;
     float: right;
-    font-size: .8rem;
+    font-size: .6rem;
     background-color: #A7000A;
     border: none;
     color: #fff;
@@ -191,7 +191,7 @@ button {
     background-color: #5E040D;
 }
 
-@media(max-width: 640px){
+@media(max-width: 670px){
 /*
     .card-container {
         width: 85%;

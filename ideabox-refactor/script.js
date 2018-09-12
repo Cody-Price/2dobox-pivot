@@ -30,15 +30,15 @@ function render(card) {
 function storeData(card) {
   var stringifiedCard = JSON.stringify(card);
   localStorage.setItem(card.id, stringifiedCard);
-}
+};
 
 function getDataStorage() {
   for (var i = 0; i < localStorage.length; i++) {
     var getData = localStorage.getItem(localStorage.key(i));
     var parsedData = JSON.parse(getData);
-    render(parsedData)
-  }
-}
+    render(parsedData);
+  };
+};
 
 function updateCard(card, quality, targetId, title, body) {
   card.id = targetId;
@@ -62,12 +62,12 @@ function updateCard(card, quality, targetId, title, body) {
                 <button class="complete-btn">Completed Task</button>
               </div>`
   return card;
-}
+};
 
 function updateLocalStorage(card, quality, targetId, title, body) {
   updateCard(card, quality, targetId, title, body);
   storeData(card);
-}
+};
 
 $('#search-input').on('keyup', function(event) {
   var filterInput = $('#search-input').val().toLowerCase();
@@ -78,29 +78,28 @@ $('#search-input').on('keyup', function(event) {
       $(taskArray[i]).slideUp();
     } else {
       $(taskArray[i]).slideDown();
-    }
-  }
+    };
+  };
 });
 
 $('.card-section').on('keyup', function(event) {
   var quality = $(event.target).siblings('.voting-div').children('.quality').children('.quality-variable').text();
   var targetId = $(event.target).parent().attr('id');
-  var title = $(event.target).closest('.title-of-card').text() || $(event.target).siblings('.title-of-card').text()
-  var body = $(event.target).siblings('.body-of-card').text() || $(event.target).closest('.body-of-card').text()
+  var title = $(event.target).closest('.title-of-card').text() || $(event.target).siblings('.title-of-card').text();
+  var body = $(event.target).siblings('.body-of-card').text() || $(event.target).closest('.body-of-card').text();
   var card = JSON.parse(localStorage.getItem(targetId));
-  var key = event.which || event.keyCode;
   var text = $(event.target).text();
   if ($(event.target).hasClass('title-of-card')){
     updateLocalStorage(card, quality, targetId, text, body);
   }
   if ($(event.target).hasClass('body-of-card')){
     updateLocalStorage(card, quality, targetId, title, text);
-  }
+  };
 });
 
 $('.save-btn').on('click', function(event) {
     event.preventDefault();
-    var card = new NewCard($('#title-input').val(), $('#body-input').val(), 'swill')
+    var card = new NewCard($('#title-input').val(), $('#body-input').val(), 'None')
     render(card);
     $( ".card-section" ).prepend(card);
     storeData(card);
@@ -108,35 +107,58 @@ $('.save-btn').on('click', function(event) {
     $('.save-btn').attr('disabled', true);
 });
 
-
 $('.card-section').on('click', function(event) {
+  var targetId = $(event.target).parent().parent().attr('id');
+  var quality;
   if ($(event.target).hasClass('upvote')) {
-    upVote();
-  }
-})
-
-$('.card-section').on('click', function(event) {
-  if ($(event.target).hasClass('downvote')) {
-    downVote();
-  }
+    quality = upVote('quality');
+    var card = JSON.parse(localStorage.getItem(targetId));
+    updateLocalStorage(card, quality, targetId, card.title, card.body);
+  };
 });
 
-function upVote() {
+$('.card-section').on('click', function(event) {
+  var targetId = $(event.target).parent().parent().attr('id');
+  var quality;
+  if ($(event.target).hasClass('downvote')) {
+    quality = downVote('quality');
+    var card = JSON.parse(localStorage.getItem(targetId));
+    updateLocalStorage(card, quality, targetId, card.title, card.body); 
+  };
+});
+
+function upVote(quality) {
   var quality = $(event.target).closest('.card-container').find('.quality-variable');
-  if ($(quality).text() === 'swill') {
-    $(quality).text('plausible');
-  } else if ($(quality).text() === 'plausible') {
-    $(quality).text('genius');
-  } 
+  if ($(quality).text() === 'None') {
+    $(quality).text('Low');
+    return 'Low'
+  } else if ($(quality).text() === 'Low') {
+    $(quality).text('Normal');
+    return 'Normal'
+  } else if ($(quality).text() === 'Normal') {
+    $(quality).text('High');
+    return 'High'
+  } else if ($(quality).text() === 'High') {
+    $(quality).text('Critical');
+    return 'Critical'
+  };
 };
 
-function downVote() {
+function downVote(quality) {
   var quality = $(event.target).closest('.card-container').find('.quality-variable');
-  if ($(quality).text() === 'genius') {
-    $(quality).text('plausible');
-  } else if ($(quality).text() === 'plausible') {
-    $(quality).text('swill');
-  } 
+  if ($(quality).text() === 'Critical') {
+    $(quality).text('High');
+    return 'High'
+  } else if ($(quality).text() === 'High') {
+    $(quality).text('Normal');
+    return 'Normal'
+  } else if ($(quality).text() === 'Normal') {
+    $(quality).text('Low');
+    return 'Low'
+  } else if ($(quality).text() === 'Low') {
+    $(quality).text('None');
+    return 'None'
+  };
 };
 
 $('.card-section').on('click', function(event) {
