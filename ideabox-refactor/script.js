@@ -27,9 +27,9 @@ function render(data) {
   $('.card-section').prepend(html);
 }
 
-function storeData(obj) {
-  var stringifiedObj = JSON.stringify(obj);
-  localStorage.setItem(obj.id, stringifiedObj);
+function storeData(card) {
+  var stringifiedCard = JSON.stringify(card);
+  localStorage.setItem(card.id, stringifiedCard);
 }
 
 function getDataStorage() {
@@ -39,6 +39,69 @@ function getDataStorage() {
     render(parsedData)
   }
 }
+
+function updateCard(card, quality, targetId, title, body) {
+  card.id = targetId;
+  card.quality = quality;
+  card.title = title;
+  card.body = body;
+  card.html = `<div id="${card.id}" class="card-container">
+                <h2 class="title-of-card" contenteditable="true"> 
+                  ${card.title} 
+                </h2>
+                <button class="delete-button circle-button"></button>
+                <p class="body-of-card" contenteditable="true">
+                  ${card.body} 
+                </p>
+                <div class="voting-div">
+                  <button class="upvote circle-button"></button> 
+                  <button class="downvote circle-button"></button> 
+                  <p class="quality"> quality: <span class="quality-variable">${card.quality}</span>  
+                  </p>
+                </div>
+                <hr> 
+              </div>`
+  return card;
+}
+
+function updateLocalStorage(card, quality, targetId, title, body) {
+  updateCard(card, quality, targetId, title, body);
+  storeData(card);
+}
+
+// function readCard() {
+//   var targetId = $(event.target).parent().attr('id');
+//   var card = JSON.parse(localStorage.getItem(targetId));
+// }
+
+$('#search-input').on('keyup', function(event) {
+  var filterInput = $('#search-input').val().toLowerCase();
+  var taskArray = $('.card-container');
+  for (var i = 0; i < taskArray.length; i++) {
+    if ($(taskArray[i].children[0]).text().toLowerCase().indexOf(filterInput) === -1 
+      && $(taskArray[i].children[2]).text().toLowerCase().indexOf(filterInput) === -1) {
+      $(taskArray[i]).slideUp();
+    } else {
+      $(taskArray[i]).slideDown();
+    }
+  }
+})
+
+$('.card-section').on('keyup', function(event) {
+  var quality = $(event.target).siblings('.voting-div').children('.quality').children('.quality-variable').text();
+  var targetId = $(event.target).parent().attr('id');
+  var title = $(event.target).closest('.title-of-card').text() || $(event.target).siblings('.title-of-card').text()
+  var body = $(event.target).siblings('.body-of-card').text() || $(event.target).closest('.body-of-card').text()
+  var card = JSON.parse(localStorage.getItem(targetId));
+  var key = event.which || event.keyCode;
+  var text = $(event.target).text();
+  if ($(event.target).hasClass('title-of-card')){
+    updateLocalStorage(card, quality, targetId, text, body);
+  }
+  if ($(event.target).hasClass('body-of-card')){
+    updateLocalStorage(card, quality, targetId, title, text);
+  }
+});
 
 $('.save-btn').on('click', function(event) {
     event.preventDefault();
