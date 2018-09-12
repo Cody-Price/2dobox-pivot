@@ -74,6 +74,19 @@ function updateLocalStorage(card, quality, targetId, title, body) {
 //   var card = JSON.parse(localStorage.getItem(targetId));
 // }
 
+$('#search-input').on('keyup', function(event) {
+  var filterInput = $('#search-input').val().toLowerCase();
+  var taskArray = $('.card-container');
+  for (var i = 0; i < taskArray.length; i++) {
+    if ($(taskArray[i].children[0]).text().toLowerCase().indexOf(filterInput) === -1 
+      && $(taskArray[i].children[2]).text().toLowerCase().indexOf(filterInput) === -1) {
+      $(taskArray[i]).slideUp();
+    } else {
+      $(taskArray[i]).slideDown();
+    }
+  }
+})
+
 $('.card-section').on('keyup', function(event) {
   var quality = $(event.target).siblings('.voting-div').children('.quality').children('.quality-variable').text();
   var targetId = $(event.target).parent().attr('id');
