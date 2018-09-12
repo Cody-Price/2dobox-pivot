@@ -141,7 +141,9 @@ function upVote(quality) {
   } else if ($(quality).text() === 'High') {
     $(quality).text('Critical');
     return 'Critical'
-  };
+  } else if ($(quality).text() === 'Critical') {
+    return 'Critical'
+  }
 };
 
 function downVote(quality) {
@@ -158,7 +160,9 @@ function downVote(quality) {
   } else if ($(quality).text() === 'Low') {
     $(quality).text('None');
     return 'None'
-  };
+  } else if ($(quality).text() === 'None') {
+    return 'None'
+  }
 };
 
 $('.card-section').on('click', function(event) {

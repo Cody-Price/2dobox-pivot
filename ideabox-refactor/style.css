@@ -96,7 +96,7 @@ input {
     color: #6D6E71;
     display: inline-block;
     word-wrap: break-word;
-    max-width: 17em;
+    max-width: 84%;
     font-family: 'Roboto Slab', serif;
     font-size: 140%;
 
@@ -129,6 +129,7 @@ button {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
 }
 
 .quality {
@@ -146,7 +147,7 @@ button {
 
 .downvote {
     background-image: url(./images/downvote.svg);
-    margin: 0 20px;
+    margin: 0 2%;
 }
 
 .downvote:hover {
@@ -191,14 +192,15 @@ button {
     background-color: #5E040D;
 }
 
-@media(max-width: 670px){
-/*
-    .card-container {
-        width: 85%;
-    }
+@media only screen and (max-width: 760px) {
+  .card-section {
 
-    #search-input {
-        border: solid #999 1px;
-    }
-}*/
+}
+}
 
+@media only screen and (max-width: 500px) {
+  .card-section {
+    width: 80%;
+    background-color: pink;
+}
+}
