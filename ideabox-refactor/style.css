@@ -86,7 +86,10 @@ input {
 
 .card-container {
     border-bottom: solid 1px lightgrey;
+}
 
+.completed {
+   text-decoration: line-through;
 }
 
 .title-of-card{

@@ -69,11 +69,6 @@ function updateLocalStorage(card, quality, targetId, title, body) {
   storeData(card);
 }
 
-// function readCard() {
-//   var targetId = $(event.target).parent().attr('id');
-//   var card = JSON.parse(localStorage.getItem(targetId));
-// }
-
 $('#search-input').on('keyup', function(event) {
   var filterInput = $('#search-input').val().toLowerCase();
   var taskArray = $('.card-container');
@@ -85,7 +80,7 @@ $('#search-input').on('keyup', function(event) {
       $(taskArray[i]).slideDown();
     }
   }
-})
+});
 
 $('.card-section').on('keyup', function(event) {
   var quality = $(event.target).siblings('.voting-div').children('.quality').children('.quality-variable').text();
@@ -124,7 +119,7 @@ $('.card-section').on('click', function(event) {
   if ($(event.target).hasClass('downvote')) {
     downVote();
   }
-})
+});
 
 function upVote() {
   var quality = $(event.target).closest('.card-container').find('.quality-variable');
@@ -133,7 +128,7 @@ function upVote() {
   } else if ($(quality).text() === 'plausible') {
     $(quality).text('genius');
   } 
-}
+};
 
 function downVote() {
   var quality = $(event.target).closest('.card-container').find('.quality-variable');
@@ -142,26 +137,18 @@ function downVote() {
   } else if ($(quality).text() === 'plausible') {
     $(quality).text('swill');
   } 
-}
+};
 
+$('.card-section').on('click', function(event) {
+  if ($(event.target).hasClass('complete-btn')) {
+    markAsCompleted();
+  }
+});
 
-// // classic code
-// $('.card-section').on('keyup', function(event) {
-//   var cardHTML = $(event.target).closest('.card-container');
-//   // var cardHTMLId = cardHTML[0].id;
-//   var cardArray = [];
-//   var stringyCard = JSON.stringify(cardHTML);
-//   var cardObjectInJSON = localStorage.setItem(cardArray, stringyCard);
-//   // var cardObjectInJS = JSON.parse(cardObjectInJSON);
-//   // cardObjectInJS.quality = cardHTML.find('.quality-variable').text();
-//   // debugger;
-
-//   // // var NewCardJSON = JSON.stringify(cardObjectInJS);
-//   // debugger;
-//   // localStorage.setItem(cardHTMLId, NewCardJSON);
-//   // debugger;
-// })
-      
+function markAsCompleted(){
+  $('.title-of-card').addClass('completed');
+  $('.card-container').addClass('completed');
+};
 
 $('.card-section').on('click', function(event) {
   if ($(event.target).hasClass('delete-button')) {
@@ -172,11 +159,11 @@ $('.card-section').on('click', function(event) {
 
 $('#title-input').on('input', function() {
   checkInputs();
-})
+});
 
 $('#body-input').on('input', function() {
   checkInputs();
-})
+});
 
 function checkInputs(){
   if ($('#title-input').val() !== "" && $('#body-input').val() !== "") {
@@ -185,4 +172,4 @@ function checkInputs(){
   } else {
     return false;
   }
-}
+};
