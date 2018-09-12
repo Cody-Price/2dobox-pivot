@@ -87,6 +87,7 @@ input {
 
 .card-container {
     border-bottom: solid 1px lightgrey;
+    margin: 25px 0;
 }
 
 .completed {

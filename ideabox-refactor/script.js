@@ -166,15 +166,12 @@ function downVote(quality) {
 };
 
 $('.card-section').on('click', function(event) {
+  var card = $(event.target).closest('.card-container');
   if ($(event.target).hasClass('complete-btn')) {
-    markAsCompleted();
+  card.addClass('completed');
+  card.children().addClass('completed');
   }
 });
-
-function markAsCompleted(){
-  $('.title-of-card').addClass('completed');
-  $('.card-container').addClass('completed');
-};
 
 $('.card-section').on('click', function(event) {
   if ($(event.target).hasClass('delete-button')) {
