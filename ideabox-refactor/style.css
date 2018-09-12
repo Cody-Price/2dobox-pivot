@@ -41,6 +41,7 @@ h1{
 #search-input {
     margin-top: 35px;
     width: 49.5%;
+    border: solid 1px lightgrey; 
 }
 
 .save-btn {
@@ -84,18 +85,23 @@ input {
     width: 50%;
 }
 
-.card {
-    background-color: #ffffff;
-    height: auto;
-    margin: auto;
-    width: 45%;
+.card-container {
+    border-bottom: solid 1px lightgrey;
+    margin: 25px 0;
+}
+
+.completed {
+   text-decoration: line-through;
 }
 
 .title-of-card{
     color: #6D6E71;
     display: inline-block;
+    word-wrap: break-word;
+    max-width: 84%;
     font-family: 'Roboto Slab', serif;
     font-size: 140%;
+
 }
 
 h2 {
@@ -125,6 +131,7 @@ button {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
 }
 
 .quality {
@@ -142,7 +149,7 @@ button {
 
 .downvote {
     background-image: url(./images/downvote.svg);
-    margin: 0 20px;
+    margin: 0 2%;
 }
 
 .downvote:hover {
@@ -171,14 +178,31 @@ button {
     background-size: cover;
 }
 
-@media(max-width: 640px){
-/*
-    .card-container {
-        width: 85%;
-    }
+.complete-btn {
+    width: 25%;
+    float: right;
+    font-size: .6rem;
+    background-color: #A7000A;
+    border: none;
+    color: #fff;
+    height: 26px;
+    position: relative;
+    bottom: 40px;
+}
 
-    #search-input {
-        border: solid #999 1px;
-    }
-}*/
+.complete-btn:hover {
+    background-color: #5E040D;
+}
 
+
+@media only screen and (max-width: 500px) {
+  
+  form,
+  #search-input,
+  .card-section {
+    width: 80%;
+    /*background-color: pink;*/
+  }
+
+
+}
