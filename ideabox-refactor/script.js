@@ -22,7 +22,7 @@ function render(data) {
                   <p class="quality"> quality: <span class="quality-variable">${data.quality}</span>  
                   </p>
                 </div>
-                <hr> 
+                <button class="complete-btn">Completed Task</button> 
               </div>`
   $('.card-section').prepend(html);
 }
@@ -59,7 +59,7 @@ function updateCard(card, quality, targetId, title, body) {
                   <p class="quality"> quality: <span class="quality-variable">${card.quality}</span>  
                   </p>
                 </div>
-                <hr> 
+                <button class="complete-btn">Completed Task</button>
               </div>`
   return card;
 }

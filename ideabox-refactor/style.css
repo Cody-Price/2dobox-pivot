@@ -84,18 +84,19 @@ input {
     width: 50%;
 }
 
-.card {
-    background-color: #ffffff;
-    height: auto;
-    margin: auto;
-    width: 45%;
+.card-container {
+    border-bottom: solid 1px lightgrey;
+
 }
 
 .title-of-card{
     color: #6D6E71;
     display: inline-block;
+    word-wrap: break-word;
+    max-width: 17em;
     font-family: 'Roboto Slab', serif;
     font-size: 140%;
+
 }
 
 h2 {
@@ -169,6 +170,22 @@ button {
     height: 30px;
     width: 30px;
     background-size: cover;
+}
+
+.complete-btn {
+    width: 25%;
+    float: right;
+    font-size: .8rem;
+    background-color: #A7000A;
+    border: none;
+    color: #fff;
+    height: 26px;
+    position: relative;
+    bottom: 40px;
+}
+
+.complete-btn:hover {
+    background-color: #5E040D;
 }
 
 @media(max-width: 640px){
