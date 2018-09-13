@@ -27,19 +27,6 @@ function render(card) {
   $('.card-section').prepend(html);
 };
 
-function storeData(card) {
-  var stringifiedCard = JSON.stringify(card);
-  localStorage.setItem(card.id, stringifiedCard);
-};
-
-function getDataStorage() {
-  for (var i = 0; i < localStorage.length; i++) {
-    var getData = localStorage.getItem(localStorage.key(i));
-    var parsedData = JSON.parse(getData);
-    render(parsedData);
-  };
-};
-
 function updateCard(card, quality, targetId, title, body) {
   card.id = targetId;
   card.quality = quality;
@@ -62,6 +49,19 @@ function updateCard(card, quality, targetId, title, body) {
                 <button class="complete-btn">Completed Task</button>
               </div>`
   return card;
+};
+
+function storeData(card) {
+  var stringifiedCard = JSON.stringify(card);
+  localStorage.setItem(card.id, stringifiedCard);
+};
+
+function getDataStorage() {
+  for (var i = 0; i < localStorage.length; i++) {
+    var getData = localStorage.getItem(localStorage.key(i));
+    var parsedData = JSON.parse(getData);
+    render(parsedData);
+  };
 };
 
 function updateLocalStorage(card, quality, targetId, title, body) {
