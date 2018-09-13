@@ -23,7 +23,7 @@ function render(card) {
                   </p>
                 </div>
                 <button class="complete-btn">Completed Task</button> 
-              </div>`
+              </div>`;
   $('.card-section').prepend(html);
 };
 
@@ -47,8 +47,17 @@ function updateCard(card, quality, targetId, title, body) {
                   </p>
                 </div>
                 <button class="complete-btn">Completed Task</button>
-              </div>`
+              </div>`;
   return card;
+};
+
+function checkInputs(){
+  if ($('#title-input').val() !== "" && $('#body-input').val() !== "") {
+    $('.save-btn').attr('disabled', false);
+    return true;
+  } else {
+    return false;
+  }
 };
 
 function storeData(card) {
@@ -68,64 +77,6 @@ function updateLocalStorage(card, quality, targetId, title, body) {
   updateCard(card, quality, targetId, title, body);
   storeData(card);
 };
-
-$('#search-input').on('keyup', function(event) {
-  var filterInput = $('#search-input').val().toLowerCase();
-  var taskArray = $('.card-container');
-  for (var i = 0; i < taskArray.length; i++) {
-    if ($(taskArray[i].children[0]).text().toLowerCase().indexOf(filterInput) === -1 
-      && $(taskArray[i].children[2]).text().toLowerCase().indexOf(filterInput) === -1) {
-      $(taskArray[i]).slideUp();
-    } else {
-      $(taskArray[i]).slideDown();
-    };
-  };
-});
-
-$('.card-section').on('keyup', function(event) {
-  var quality = $(event.target).siblings('.voting-div').children('.quality').children('.quality-variable').text();
-  var targetId = $(event.target).parent().attr('id');
-  var title = $(event.target).closest('.title-of-card').text() || $(event.target).siblings('.title-of-card').text();
-  var body = $(event.target).siblings('.body-of-card').text() || $(event.target).closest('.body-of-card').text();
-  var card = JSON.parse(localStorage.getItem(targetId));
-  var text = $(event.target).text();
-  if ($(event.target).hasClass('title-of-card')){
-    updateLocalStorage(card, quality, targetId, text, body);
-  }
-  if ($(event.target).hasClass('body-of-card')){
-    updateLocalStorage(card, quality, targetId, title, text);
-  };
-});
-
-$('.save-btn').on('click', function(event) {
-    event.preventDefault();
-    var card = new NewCard($('#title-input').val(), $('#body-input').val(), 'None')
-    render(card);
-    $( ".card-section" ).prepend(card);
-    storeData(card);
-    $('form')[0].reset();
-    $('.save-btn').attr('disabled', true);
-});
-
-$('.card-section').on('click', function(event) {
-  var targetId = $(event.target).parent().parent().attr('id');
-  var quality;
-  if ($(event.target).hasClass('upvote')) {
-    quality = upVote('quality');
-    var card = JSON.parse(localStorage.getItem(targetId));
-    updateLocalStorage(card, quality, targetId, card.title, card.body);
-  };
-});
-
-$('.card-section').on('click', function(event) {
-  var targetId = $(event.target).parent().parent().attr('id');
-  var quality;
-  if ($(event.target).hasClass('downvote')) {
-    quality = downVote('quality');
-    var card = JSON.parse(localStorage.getItem(targetId));
-    updateLocalStorage(card, quality, targetId, card.title, card.body); 
-  };
-});
 
 function upVote(quality) {
   var quality = $(event.target).closest('.card-container').find('.quality-variable');
@@ -165,12 +116,70 @@ function downVote(quality) {
   }
 };
 
-$('.card-section').on('click', function(event) {
-  var card = $(event.target).closest('.card-container');
-  if ($(event.target).hasClass('complete-btn')) {
-  card.addClass('completed');
-  card.children().addClass('completed');
+$('#title-input').on('input', function() {
+  checkInputs();
+});
+
+$('#body-input').on('input', function() {
+  checkInputs();
+});
+
+$('.save-btn').on('click', function(event) {
+    event.preventDefault();
+    var card = new NewCard($('#title-input').val(), $('#body-input').val(), 'None')
+    render(card);
+    $( ".card-section" ).prepend(card);
+    storeData(card);
+    $('form')[0].reset();
+    $('.save-btn').attr('disabled', true);
+});
+
+$('#search-input').on('keyup', function(event) {
+  var filterInput = $('#search-input').val().toLowerCase();
+  var taskArray = $('.card-container');
+  for (var i = 0; i < taskArray.length; i++) {
+    if ($(taskArray[i].children[0]).text().toLowerCase().indexOf(filterInput) === -1 
+      && $(taskArray[i].children[2]).text().toLowerCase().indexOf(filterInput) === -1) {
+      $(taskArray[i]).slideUp();
+    } else {
+      $(taskArray[i]).slideDown();
+    };
+  };
+});
+
+$('.card-section').on('keyup', function(event) {
+  var quality = $(event.target).siblings('.voting-div').children('.quality').children('.quality-variable').text();
+  var targetId = $(event.target).parent().attr('id');
+  var title = $(event.target).closest('.title-of-card').text() || $(event.target).siblings('.title-of-card').text();
+  var body = $(event.target).siblings('.body-of-card').text() || $(event.target).closest('.body-of-card').text();
+  var card = JSON.parse(localStorage.getItem(targetId));
+  var text = $(event.target).text();
+  if ($(event.target).hasClass('title-of-card')){
+    updateLocalStorage(card, quality, targetId, text, body);
   }
+  if ($(event.target).hasClass('body-of-card')){
+    updateLocalStorage(card, quality, targetId, title, text);
+  };
+});
+
+$('.card-section').on('click', function(event) {
+  var targetId = $(event.target).parent().parent().attr('id');
+  var quality;
+  if ($(event.target).hasClass('upvote')) {
+    quality = upVote('quality');
+    var card = JSON.parse(localStorage.getItem(targetId));
+    updateLocalStorage(card, quality, targetId, card.title, card.body);
+  };
+});
+
+$('.card-section').on('click', function(event) {
+  var targetId = $(event.target).parent().parent().attr('id');
+  var quality;
+  if ($(event.target).hasClass('downvote')) {
+    quality = downVote('quality');
+    var card = JSON.parse(localStorage.getItem(targetId));
+    updateLocalStorage(card, quality, targetId, card.title, card.body); 
+  };
 });
 
 $('.card-section').on('click', function(event) {
@@ -180,19 +189,10 @@ $('.card-section').on('click', function(event) {
   } 
 });
 
-$('#title-input').on('input', function() {
-  checkInputs();
-});
-
-$('#body-input').on('input', function() {
-  checkInputs();
-});
-
-function checkInputs(){
-  if ($('#title-input').val() !== "" && $('#body-input').val() !== "") {
-    $('.save-btn').attr('disabled', false);
-    return true;
-  } else {
-    return false;
+$('.card-section').on('click', function(event) {
+  var card = $(event.target).closest('.card-container');
+  if ($(event.target).hasClass('complete-btn')) {
+  card.addClass('completed');
+  card.children().addClass('completed');
   }
-};
+});
