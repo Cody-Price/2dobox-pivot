@@ -23,21 +23,8 @@ function render(card) {
                   </p>
                 </div>
                 <button class="complete-btn">Completed Task</button> 
-              </div>`
+              </div>`;
   $('.card-section').prepend(html);
-};
-
-function storeData(card) {
-  var stringifiedCard = JSON.stringify(card);
-  localStorage.setItem(card.id, stringifiedCard);
-};
-
-function getDataStorage() {
-  for (var i = 0; i < localStorage.length; i++) {
-    var getData = localStorage.getItem(localStorage.key(i));
-    var parsedData = JSON.parse(getData);
-    render(parsedData);
-  };
 };
 
 function updateCard(card, quality, targetId, title, body) {
@@ -60,14 +47,92 @@ function updateCard(card, quality, targetId, title, body) {
                   </p>
                 </div>
                 <button class="complete-btn">Completed Task</button>
-              </div>`
+              </div>`;
   return card;
+};
+
+function checkInputs(){
+  if ($('#title-input').val() !== "" && $('#body-input').val() !== "") {
+    $('.save-btn').attr('disabled', false);
+    return true;
+  } else {
+    return false;
+  }
+};
+
+function storeData(card) {
+  var stringifiedCard = JSON.stringify(card);
+  localStorage.setItem(card.id, stringifiedCard);
+};
+
+function getDataStorage() {
+  for (var i = 0; i < localStorage.length; i++) {
+    var getData = localStorage.getItem(localStorage.key(i));
+    var parsedData = JSON.parse(getData);
+    render(parsedData);
+  };
 };
 
 function updateLocalStorage(card, quality, targetId, title, body) {
   updateCard(card, quality, targetId, title, body);
   storeData(card);
 };
+
+function upVote(quality) {
+  var quality = $(event.target).closest('.card-container').find('.quality-variable');
+  if ($(quality).text() === 'None') {
+    $(quality).text('Low');
+    return 'Low';
+  } else if ($(quality).text() === 'Low') {
+    $(quality).text('Normal');
+    return 'Normal';
+  } else if ($(quality).text() === 'Normal') {
+    $(quality).text('High');
+    return 'High';
+  } else if ($(quality).text() === 'High') {
+    $(quality).text('Critical');
+    return 'Critical';
+  } else if ($(quality).text() === 'Critical') {
+    return 'Critical';
+  };
+};
+
+function downVote(quality) {
+  var quality = $(event.target).closest('.card-container').find('.quality-variable');
+  if ($(quality).text() === 'Critical') {
+    $(quality).text('High');
+    return 'High';
+  } else if ($(quality).text() === 'High') {
+    $(quality).text('Normal');
+    return 'Normal';
+  } else if ($(quality).text() === 'Normal') {
+    $(quality).text('Low');
+    return 'Low';
+  } else if ($(quality).text() === 'Low') {
+    $(quality).text('None');
+    return 'None';
+  } else if ($(quality).text() === 'None') {
+    return 'None';
+  };
+};
+
+$('#title-input').on('input', function() {
+  checkInputs();
+});
+
+$('#body-input').on('input', function() {
+  checkInputs();
+});
+
+$('.save-btn').on('click', function(event) {
+    event.preventDefault();
+    var card = new NewCard($('#title-input').val(), $('#body-input').val(), 'None')
+    render(card);
+    $( ".card-section" ).prepend(card);
+    storeData(card);
+    $('form')[0].reset();
+    $('.save-btn').attr('disabled', true);
+});
 
 $('#search-input').on('keyup', function(event) {
   var filterInput = $('#search-input').val().toLowerCase();
@@ -97,16 +162,6 @@ $('.card-section').on('keyup', function(event) {
   };
 });
 
-$('.save-btn').on('click', function(event) {
-    event.preventDefault();
-    var card = new NewCard($('#title-input').val(), $('#body-input').val(), 'None')
-    render(card);
-    $( ".card-section" ).prepend(card);
-    storeData(card);
-    $('form')[0].reset();
-    $('.save-btn').attr('disabled', true);
-});
-
 $('.card-section').on('click', function(event) {
   var targetId = $(event.target).parent().parent().attr('id');
   var quality;
@@ -127,72 +182,17 @@ $('.card-section').on('click', function(event) {
   };
 });
 
-function upVote(quality) {
-  var quality = $(event.target).closest('.card-container').find('.quality-variable');
-  if ($(quality).text() === 'None') {
-    $(quality).text('Low');
-    return 'Low'
-  } else if ($(quality).text() === 'Low') {
-    $(quality).text('Normal');
-    return 'Normal'
-  } else if ($(quality).text() === 'Normal') {
-    $(quality).text('High');
-    return 'High'
-  } else if ($(quality).text() === 'High') {
-    $(quality).text('Critical');
-    return 'Critical'
-  } else if ($(quality).text() === 'Critical') {
-    return 'Critical'
-  }
-};
-
-function downVote(quality) {
-  var quality = $(event.target).closest('.card-container').find('.quality-variable');
-  if ($(quality).text() === 'Critical') {
-    $(quality).text('High');
-    return 'High'
-  } else if ($(quality).text() === 'High') {
-    $(quality).text('Normal');
-    return 'Normal'
-  } else if ($(quality).text() === 'Normal') {
-    $(quality).text('Low');
-    return 'Low'
-  } else if ($(quality).text() === 'Low') {
-    $(quality).text('None');
-    return 'None'
-  } else if ($(quality).text() === 'None') {
-    return 'None'
-  }
-};
+$('.card-section').on('click', function(event) {
+  if ($(event.target).hasClass('delete-button')) {
+  var cardHTML = $(event.target).closest('.card-container').remove();
+  localStorage.removeItem(cardHTML[0].id);
+  }; 
+});
 
 $('.card-section').on('click', function(event) {
   var card = $(event.target).closest('.card-container');
   if ($(event.target).hasClass('complete-btn')) {
   card.addClass('completed');
   card.children().addClass('completed');
-  }
+  };
 });
-
-$('.card-section').on('click', function(event) {
-  if ($(event.target).hasClass('delete-button')) {
-  var cardHTML = $(event.target).closest('.card-container').remove();
-  localStorage.removeItem(cardHTML[0].id);
-  } 
-});
-
-$('#title-input').on('input', function() {
-  checkInputs();
-});
-
-$('#body-input').on('input', function() {
-  checkInputs();
-});
-
-function checkInputs(){
-  if ($('#title-input').val() !== "" && $('#body-input').val() !== "") {
-    $('.save-btn').attr('disabled', false);
-    return true;
-  } else {
-    return false;
-  }
-};
