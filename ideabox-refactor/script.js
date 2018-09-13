@@ -82,38 +82,38 @@ function upVote(quality) {
   var quality = $(event.target).closest('.card-container').find('.quality-variable');
   if ($(quality).text() === 'None') {
     $(quality).text('Low');
-    return 'Low'
+    return 'Low';
   } else if ($(quality).text() === 'Low') {
     $(quality).text('Normal');
-    return 'Normal'
+    return 'Normal';
   } else if ($(quality).text() === 'Normal') {
     $(quality).text('High');
-    return 'High'
+    return 'High';
   } else if ($(quality).text() === 'High') {
     $(quality).text('Critical');
-    return 'Critical'
+    return 'Critical';
   } else if ($(quality).text() === 'Critical') {
-    return 'Critical'
-  }
+    return 'Critical';
+  };
 };
 
 function downVote(quality) {
   var quality = $(event.target).closest('.card-container').find('.quality-variable');
   if ($(quality).text() === 'Critical') {
     $(quality).text('High');
-    return 'High'
+    return 'High';
   } else if ($(quality).text() === 'High') {
     $(quality).text('Normal');
-    return 'Normal'
+    return 'Normal';
   } else if ($(quality).text() === 'Normal') {
     $(quality).text('Low');
-    return 'Low'
+    return 'Low';
   } else if ($(quality).text() === 'Low') {
     $(quality).text('None');
-    return 'None'
+    return 'None';
   } else if ($(quality).text() === 'None') {
-    return 'None'
-  }
+    return 'None';
+  };
 };
 
 $('#title-input').on('input', function() {
@@ -186,7 +186,7 @@ $('.card-section').on('click', function(event) {
   if ($(event.target).hasClass('delete-button')) {
   var cardHTML = $(event.target).closest('.card-container').remove();
   localStorage.removeItem(cardHTML[0].id);
-  } 
+  }; 
 });
 
 $('.card-section').on('click', function(event) {
@@ -194,5 +194,5 @@ $('.card-section').on('click', function(event) {
   if ($(event.target).hasClass('complete-btn')) {
   card.addClass('completed');
   card.children().addClass('completed');
-  }
+  };
 });
